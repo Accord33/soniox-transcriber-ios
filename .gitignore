@@ -24,6 +24,7 @@ Package.resolved
 *.p12
 *.mobileprovision
 Secrets.xcconfig
+Signing.local.xcconfig
 
 # macOS and editors
 .DS_Store
