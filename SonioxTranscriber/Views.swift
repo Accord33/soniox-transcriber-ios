@@ -143,7 +143,12 @@ struct MainView: View {
                 }
             }
         }
-        .sheet(isPresented: $showingHistory) { HistoryView(history: history, selected: $selected, isPresented: $showingHistory) }
+        .sheet(isPresented: $showingHistory) {
+            HistoryView(history: history, selected: $selected, isPresented: $showingHistory) {
+                selected = nil
+                if !manager.isActive { manager.resetTranscript() }
+            }
+        }
         .sheet(item: $shareItem) { ShareSheet(items: [$0.url]) }
         .alert("マイクへのアクセスが必要です", isPresented: $showMicSettings) {
             Button("設定を開く") { UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!) }
@@ -261,12 +266,16 @@ struct HistoryView: View {
     let history: [Transcription]
     @Binding var selected: Transcription?
     @Binding var isPresented: Bool
+    let onNewTranscription: () -> Void
     @Environment(\.modelContext) private var modelContext
 
     var body: some View {
         NavigationStack {
             List {
-                Button { selected = nil; isPresented = false } label: { Label("新しい文字起こし", systemImage: "square.and.pencil") }
+                Button {
+                    onNewTranscription()
+                    isPresented = false
+                } label: { Label("新しい文字起こし", systemImage: "square.and.pencil") }
                 Section("履歴") {
                     if history.isEmpty { Text("履歴はまだありません").foregroundStyle(.secondary) }
                     ForEach(history) { item in
