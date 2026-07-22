@@ -1,5 +1,6 @@
 @preconcurrency import AVFoundation
 import Foundation
+import UIKit
 
 enum SonioxServiceError: LocalizedError, Equatable {
     case invalidKey
@@ -182,9 +183,11 @@ final class TranscriptionManager: ObservableObject {
         resetTranscript()
         self.apiKey = apiKey
         recordingRequested = true
+        UIApplication.shared.isIdleTimerDisabled = true
         state = .connecting
         guard await requestMicrophonePermission() else {
             recordingRequested = false
+            UIApplication.shared.isIdleTimerDisabled = false
             state = .failed(SonioxServiceError.microphoneDenied.localizedDescription)
             return
         }
@@ -201,6 +204,7 @@ final class TranscriptionManager: ObservableObject {
     func stop() async {
         guard isActive, state != .finishing else { return }
         recordingRequested = false
+        UIApplication.shared.isIdleTimerDisabled = false
         reconnectTask?.cancel()
         state = .finishing
         stopAudio(deactivateSession: true)
@@ -349,6 +353,7 @@ final class TranscriptionManager: ObservableObject {
     private func complete() async {
         guard state == .finishing || state == .recording else { return }
         recordingRequested = false
+        UIApplication.shared.isIdleTimerDisabled = false
         reconnectTask?.cancel()
         stopAudio(deactivateSession: true)
         timerTask?.cancel()
@@ -430,6 +435,7 @@ final class TranscriptionManager: ObservableObject {
 
     private func failPermanently(_ error: Error) async {
         recordingRequested = false
+        UIApplication.shared.isIdleTimerDisabled = false
         reconnectTask?.cancel()
         stopAudio(deactivateSession: true)
         timerTask?.cancel()
@@ -457,6 +463,7 @@ final class TranscriptionManager: ObservableObject {
         elapsed = 0
         apiKey = nil
         recordingRequested = false
+        UIApplication.shared.isIdleTimerDisabled = false
         completionDelivered = false
         state = .idle
     }
