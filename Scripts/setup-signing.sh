@@ -23,7 +23,7 @@ umask 077
 cat > "$CONFIG_FILE" <<EOF
 // Generated locally by Scripts/setup-signing.sh. Never commit this file.
 DEVELOPMENT_TEAM = $team_id
-PRODUCT_BUNDLE_IDENTIFIER = $bundle_id
+APP_BUNDLE_IDENTIFIER = $bundle_id
 EOF
 
 echo "ローカル署名設定を作成しました: $CONFIG_FILE"
