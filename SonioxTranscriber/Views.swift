@@ -112,11 +112,13 @@ struct MainView: View {
     @Binding var apiKey: String?
     @Binding var showingSetup: Bool
     @Environment(\.modelContext) private var modelContext
-    @Environment(\.scenePhase) private var scenePhase
     @Query(sort: \Transcription.createdAt, order: .reverse) private var history: [Transcription]
     @StateObject private var manager = TranscriptionManager()
+    @StateObject private var liveActivityController = RecordingLiveActivityController()
     @State private var showingHistory = false
     @State private var selected: Transcription?
+    @State private var draft: Transcription?
+    @State private var draftSaveTask: Task<Void, Never>?
     @State private var shareItem: ShareItem?
     @State private var showMicSettings = false
 
@@ -155,12 +157,17 @@ struct MainView: View {
             Button("キャンセル", role: .cancel) {}
         } message: { Text("設定アプリでマイクへのアクセスを許可してください。") }
         .onAppear {
-            manager.onCompleted = { text, segments, duration in save(text: text, segments: segments, duration: duration) }
-        }
-        .onChange(of: scenePhase) { _, phase in
-            if phase != .active && manager.isActive { Task { await manager.handleInterruption() } }
+            manager.onProgress = { text, segments, duration in
+                scheduleDraftSave(text: text, segments: segments, duration: duration)
+            }
+            manager.onCompleted = { text, segments, duration in
+                draftSaveTask?.cancel()
+                finishDraft(text: text, segments: segments, duration: duration)
+            }
+            liveActivityController.handle(state: manager.state, elapsed: manager.elapsed)
         }
         .onChange(of: manager.state) { _, state in
+            liveActivityController.handle(state: state, elapsed: manager.elapsed)
             if case .failed(let message) = state, message.contains("マイク") { showMicSettings = true }
             if case .failed(let message) = state, message.contains("APIキー") { showingSetup = true }
         }
@@ -227,7 +234,12 @@ struct MainView: View {
         Button {
             Task {
                 if manager.isActive { await manager.stop() }
-                else if let apiKey { selected = nil; await manager.start(apiKey: apiKey) }
+                else if let apiKey {
+                    draftSaveTask?.cancel()
+                    selected = nil
+                    draft = nil
+                    await manager.start(apiKey: apiKey)
+                }
                 else { showingSetup = true }
             }
         } label: {
@@ -248,6 +260,51 @@ struct MainView: View {
         let title = String(clean.prefix(28)) + (clean.count > 28 ? "…" : "")
         let item = Transcription(title: title, text: clean, segments: segments, duration: duration)
         modelContext.insert(item); try? modelContext.save(); selected = item
+    }
+
+    private func saveDraft(text: String, segments _: [TranscriptSegment], duration: TimeInterval) {
+        let clean = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !clean.isEmpty else { return }
+        if let draft {
+            draft.text = clean
+            // A draft may end in provisional tokens that do not yet have a
+            // stable speaker assignment.  Keep the complete text recoverable;
+            // finalized speaker segments are written by finishDraft instead.
+            draft.segmentsData = Data()
+            draft.duration = duration
+            draft.updatedAt = .now
+            try? modelContext.save()
+            return
+        }
+        let title = String(clean.prefix(28)) + (clean.count > 28 ? "…" : "")
+        let item = Transcription(title: title, text: clean, segments: [], duration: duration)
+        modelContext.insert(item)
+        try? modelContext.save()
+        draft = item
+    }
+
+    private func scheduleDraftSave(text: String, segments: [TranscriptSegment], duration: TimeInterval) {
+        draftSaveTask?.cancel()
+        draftSaveTask = Task { @MainActor in
+            try? await Task.sleep(for: .seconds(2))
+            guard !Task.isCancelled else { return }
+            saveDraft(text: text, segments: segments, duration: duration)
+        }
+    }
+
+    private func finishDraft(text: String, segments: [TranscriptSegment], duration: TimeInterval) {
+        let clean = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !clean.isEmpty else { return }
+        if let draft {
+            draft.text = clean
+            draft.segmentsData = (try? JSONEncoder().encode(segments)) ?? Data()
+            draft.duration = duration
+            draft.updatedAt = .now
+            try? modelContext.save()
+            selected = draft
+            return
+        }
+        save(text: clean, segments: segments, duration: duration)
     }
 
     private func createShareFile() {

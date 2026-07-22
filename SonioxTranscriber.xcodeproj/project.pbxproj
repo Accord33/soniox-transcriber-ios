@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		110000000000000000000001 /* SonioxTranscriber/RecordingActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110000000000000000000003 /* SonioxTranscriber/RecordingActivityAttributes.swift */; };
+		110000000000000000000002 /* SonioxLiveActivity.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 110000000000000000000004 /* SonioxLiveActivity.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		300000000000000000000001 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -14,11 +19,34 @@
 			remoteGlobalIDString = 500000000000000000000001;
 			remoteInfo = SonioxTranscriber;
 		};
+		310000000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 600000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 510000000000000000000001;
+			remoteInfo = SonioxLiveActivity;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		210000000000000000000004 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				110000000000000000000002 /* SonioxLiveActivity.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		100000000000000000000001 /* SonioxTranscriber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = SonioxTranscriber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		100000000000000000000002 /* SonioxTranscriberTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = SonioxTranscriberTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		110000000000000000000003 /* SonioxTranscriber/RecordingActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SonioxTranscriber/RecordingActivityAttributes.swift; sourceTree = SOURCE_ROOT; };
+		110000000000000000000004 /* SonioxLiveActivity.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; path = SonioxLiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -28,6 +56,13 @@
 				Info.plist,
 			);
 			target = 500000000000000000000001 /* SonioxTranscriber */;
+		};
+		110000000000000000000005 /* Exceptions for "SonioxLiveActivity" folder in "SonioxLiveActivity" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 510000000000000000000001 /* SonioxLiveActivity */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -43,6 +78,14 @@
 		100000000000000000000004 /* SonioxTranscriberTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SonioxTranscriberTests;
+			sourceTree = "<group>";
+		};
+		110000000000000000000006 /* SonioxLiveActivity */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				110000000000000000000005 /* Exceptions for "SonioxLiveActivity" folder in "SonioxLiveActivity" target */,
+			);
+			path = SonioxLiveActivity;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -62,6 +105,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		210000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -70,7 +120,9 @@
 			children = (
 				100000000000000000000003 /* SonioxTranscriber */,
 				100000000000000000000004 /* SonioxTranscriberTests */,
+				110000000000000000000006 /* SonioxLiveActivity */,
 				100000000000000000000006 /* Products */,
+				49BA3D953004F58B00FEFA45 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,8 +131,17 @@
 			children = (
 				100000000000000000000001 /* SonioxTranscriber.app */,
 				100000000000000000000002 /* SonioxTranscriberTests.xctest */,
+				110000000000000000000004 /* SonioxLiveActivity.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		49BA3D953004F58B00FEFA45 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				110000000000000000000003 /* SonioxTranscriber/RecordingActivityAttributes.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -93,10 +154,12 @@
 				200000000000000000000001 /* Sources */,
 				200000000000000000000002 /* Frameworks */,
 				200000000000000000000003 /* Resources */,
+				210000000000000000000004 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				310000000000000000000002 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				100000000000000000000003 /* SonioxTranscriber */,
@@ -127,6 +190,26 @@
 			productReference = 100000000000000000000002 /* SonioxTranscriberTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		510000000000000000000001 /* SonioxLiveActivity */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 710000000000000000000001 /* Build configuration list for PBXNativeTarget "SonioxLiveActivity" */;
+			buildPhases = (
+				210000000000000000000001 /* Sources */,
+				210000000000000000000002 /* Frameworks */,
+				210000000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				110000000000000000000006 /* SonioxLiveActivity */,
+			);
+			name = SonioxLiveActivity;
+			productName = SonioxLiveActivity;
+			productReference = 110000000000000000000004 /* SonioxLiveActivity.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -143,6 +226,9 @@
 					500000000000000000000002 = {
 						CreatedOnToolsVersion = 26.6;
 						TestTargetID = 500000000000000000000001;
+					};
+					510000000000000000000001 = {
+						CreatedOnToolsVersion = 26.6;
 					};
 				};
 			};
@@ -161,6 +247,7 @@
 			targets = (
 				500000000000000000000001 /* SonioxTranscriber */,
 				500000000000000000000002 /* SonioxTranscriberTests */,
+				510000000000000000000001 /* SonioxLiveActivity */,
 			);
 		};
 /* End PBXProject section */
@@ -174,6 +261,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		200000000000000000000006 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		210000000000000000000003 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -197,6 +291,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		210000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				110000000000000000000001 /* SonioxTranscriber/RecordingActivityAttributes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -204,6 +306,11 @@
 			isa = PBXTargetDependency;
 			target = 500000000000000000000001 /* SonioxTranscriber */;
 			targetProxy = 300000000000000000000001 /* PBXContainerItemProxy */;
+		};
+		310000000000000000000002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 510000000000000000000001 /* SonioxLiveActivity */;
+			targetProxy = 310000000000000000000001 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -213,9 +320,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7T8678TNFJ;
 				INFOPLIST_FILE = SonioxTranscriber/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.SonioxTranscriber;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -230,9 +338,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7T8678TNFJ;
 				INFOPLIST_FILE = SonioxTranscriber/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.SonioxTranscriber;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -249,9 +358,10 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7T8678TNFJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.SonioxTranscriberTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER).Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -265,9 +375,10 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7T8678TNFJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.SonioxTranscriberTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER).Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -280,6 +391,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APP_BUNDLE_IDENTIFIER = com.accordlab.SonioxTranscriber;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -296,12 +408,60 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APP_BUNDLE_IDENTIFIER = com.accordlab.SonioxTranscriber;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		810000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7T8678TNFJ;
+				INFOPLIST_FILE = SonioxLiveActivity/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER).LiveActivity";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		810000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7T8678TNFJ;
+				INFOPLIST_FILE = SonioxLiveActivity/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER).LiveActivity";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -331,6 +491,15 @@
 			buildConfigurations = (
 				800000000000000000000005 /* Debug */,
 				800000000000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		710000000000000000000001 /* Build configuration list for PBXNativeTarget "SonioxLiveActivity" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				810000000000000000000001 /* Debug */,
+				810000000000000000000002 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
